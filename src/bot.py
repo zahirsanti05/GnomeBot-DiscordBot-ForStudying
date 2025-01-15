@@ -8,6 +8,7 @@ from utils.endSession import end_session
 from utils.break_reminder import break_reminder
 from utils.tasks import add_Task
 from utils.tasks import complete_Task
+from utils.tasks import delete_task
 
 # load .env
 load_dotenv()
@@ -52,5 +53,8 @@ async def addTask(ctx, *, task: str):
 async def completeTask(ctx, *, task: str):
     await complete_Task(ctx, task, session)
 
+@bot.command()
+async def deleteTask(ctx, *, task: str):
+    await delete_task(ctx, task)
     
 bot.run(BOT_TOKEN)
