@@ -99,3 +99,16 @@ async def clear_tasks(ctx):
     tasks.clear()
     
     await ctx.send(f"Task(s) have been cleared")
+    
+async def remind_task(ctx):
+    if not tasks:
+        return
+    
+    # Display all current tasks again after deletion
+    task_list_msg = "**Your Remaining Tasks:**\n"
+    for index, task in enumerate(tasks, start = 1):
+        task_list_msg += f"{index}. {task}\n"
+    await ctx.send(task_list_msg)
+    
+    await ctx.send(f"Please finish your tasks after your break!")
+    

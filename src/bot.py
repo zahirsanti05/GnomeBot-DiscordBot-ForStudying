@@ -47,7 +47,7 @@ async def startSession(ctx, break_time: int = 30):
     
     # Discord API method to change the interval in @tasks.loop()
     break_reminder.change_interval(minutes=break_time)
-    break_reminder.start(bot, CHANNEL_ID, break_time)
+    break_reminder.start(ctx, bot, CHANNEL_ID, break_time)
     
 # Command to end a study session and return amount spent studying
 @bot.command()
