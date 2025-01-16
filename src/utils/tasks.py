@@ -3,6 +3,7 @@ from collections import defaultdict
 tasks = [] # Array of tasks the user gives
 completedTask = defaultdict(str) # Add the completed task with time it took to complete
 
+
 # Method to add a task to tasks
 async def add_Task(ctx, taskString):
     
@@ -14,6 +15,22 @@ async def add_Task(ctx, taskString):
     tasks.append(taskString) # Append the task to 'tasks'
     
     await ctx.send(f"Your Task: **{taskString}** has been added to your list.")
+    
+    # Display all current tasks
+    task_list_msg = "**Your Tasks:**\n"
+    
+    # Enumerate to get the index and task to print
+    for index, task in enumerate(tasks, start = 1):
+        task_list_msg += f"{index}. {task}\n"
+    await ctx.send(task_list_msg)
+    
+    
+# Method that returns the list of tasks   
+async def view_tasks(ctx):
+    # Check if tasks is empty, if it is, promt the user and return
+    if not tasks:
+        await ctx.send(f"There are no current tasks in your list; Please add tasks")
+        return
     
     # Display all current tasks
     task_list_msg = "**Your Tasks:**\n"
@@ -70,3 +87,14 @@ async def delete_task(ctx, taskString):
     for index, task in enumerate(tasks, start = 1):
         task_list_msg += f"{index}. {task}\n"
     await ctx.send(task_list_msg)
+    
+
+async def clear_tasks(ctx):
+   # Check if tasks is empty, if it is, promt the user and return
+    if not tasks:
+        await ctx.send(f"There are no current tasks in your list; Please add tasks")
+        return
+    
+    tasks.clear()
+    
+    await ctx.send(f"Task(s) have been cleared")

@@ -11,3 +11,12 @@ A simple Discord bot that helps you stay organized while studying.
 - Set timer for starting study session and stoping it when finished
 - List of tasks to do (`!addTask, !completeTask, !deleteTask`)
 - After session has ended, Study Bot will inform how long the user studyed for
+
+## Commands
+- !startSession - start a session
+- !endSession - end a session
+- !addTask {TaskHere} - adds a task 
+- !deleteTask {TaskHere} - deletes a task 
+- !completeTask {TaskHere} - completes a Task 
+- !viewTasks - returns task list 
+- !clearTasks - clears the list of tasks
