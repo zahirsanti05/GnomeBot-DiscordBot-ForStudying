@@ -89,6 +89,7 @@ async def delete_task(ctx, taskString):
     await ctx.send(task_list_msg)
     
 
+# Method that clears all current tasks in 'tasks', if empty, promt user
 async def clear_tasks(ctx):
    # Check if tasks is empty, if it is, promt the user and return
     if not tasks:
