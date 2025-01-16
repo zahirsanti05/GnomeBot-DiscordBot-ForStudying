@@ -39,10 +39,15 @@ async def hello(ctx):
     await ctx.send("Hello!")
 
 # Command to start a study session in est Local time
+# Additionally, the user decided the break reminder time interval
 @bot.command()
-async def startSession(ctx):
+async def startSession(ctx, break_time: int = 30):
     await start_session(ctx, session)
-    break_reminder.start(bot, CHANNEL_ID)
+    await ctx.send(f"Break reminder set for every {break_time} minute(s).")
+    
+    # Discord API method to change the interval in @tasks.loop()
+    break_reminder.change_interval(minutes=break_time)
+    break_reminder.start(bot, CHANNEL_ID, break_time)
     
 # Command to end a study session and return amount spent studying
 @bot.command()
