@@ -14,15 +14,7 @@ async def add_Task(ctx, taskString):
     
     tasks.append(taskString) # Append the task to 'tasks'
     
-    await ctx.send(f"Your Task: **{taskString}** has been added to your list.")
-    
-    # Display all current tasks
-    task_list_msg = "**Your Tasks:**\n"
-    
-    # Enumerate to get the index and task to print
-    for index, task in enumerate(tasks, start = 1):
-        task_list_msg += f"{index}. {task}\n"
-    await ctx.send(task_list_msg)
+    await ctx.send(f"Your Task: **{taskString}** has been added to your list.\nType **!viewTasks** to view your tasks")
     
     
 # Method that returns the list of tasks   
@@ -53,14 +45,25 @@ async def complete_Task(ctx, taskString, session):
     tasks.remove(taskString) # Remove the task off of tasks since its been completed
     
     # Same time calculation as refered in "endSession.py" method
-    end_time = ctx.message.created_at.timestamp()
-    duration = end_time - session.start_time
-    hours, remainder = divmod(int(duration), 3600)
-    minutes, seconds = divmod(remainder, 60)
-    human_readable = f"{hours:02} hours: {minutes:02} minutes: {seconds:02} seconds"
+    if session.is_active:
+        end_time = ctx.message.created_at.timestamp()
+        duration = end_time - session.start_time
+        hours, remainder = divmod(int(duration), 3600)
+        minutes, seconds = divmod(remainder, 60)
+        human_readable = f"Completion time: {hours:02} hours: {minutes:02} minutes: {seconds:02} seconds"
+    else:
+        human_readable = f"No completion time"
     
     # Use the task as the key and the time as the value
     completedTask[taskString] = human_readable
+    
+    await ctx.send(f"You have completed task: **{taskString}**; well done.\nType **!viewCompletedTasks** to view your completed tasks.")
+    
+async def view_completed_tasks(ctx):
+
+    if not completedTask:
+        await ctx.send(f"There are no current completed tasks in your list.")
+        return
     
     # Display all current completed tasks
     completed_tasks_msg = "**Completed Tasks:**\n"
@@ -68,7 +71,6 @@ async def complete_Task(ctx, taskString, session):
     for task, time in completedTask.items():
         completed_tasks_msg += f"- {task}: {time}\n"
     await ctx.send(completed_tasks_msg)
-
 
 # Method to delete a task from the array 'tasks'
 async def delete_task(ctx, taskString):

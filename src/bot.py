@@ -5,12 +5,13 @@ import os
 from utils.session import Session
 from utils.startSession import start_session
 from utils.endSession import end_session
-from utils.break_reminder import break_reminder
+from utils.break_reminder import break_reminder, update_break_time
 from utils.tasks import add_Task
 from utils.tasks import complete_Task
 from utils.tasks import delete_task
 from utils.tasks import view_tasks
 from utils.tasks import clear_tasks
+from utils.tasks import view_completed_tasks
 
 # Load .env
 load_dotenv()
@@ -37,6 +38,25 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
     await ctx.send("Hello!")
+    
+@bot.command()
+async def helpCommands(ctx):
+    helpPrint = "Here is the list of commands:\n"
+    com_Help = ["!startSession", 
+                "!endSession", 
+                "!updateBreak", 
+                "!addTask", 
+                "!viewTasks", 
+                "!deleteTask", 
+                "!completeTask", 
+                "!viewCompletedTasks", 
+                "!clearTasks"]
+    
+    for command in com_Help:
+        helpPrint += f"{command}\n"
+    
+    await ctx.send(helpPrint)
+                    
 
 # Command to start a study session in est Local time
 # Additionally, the user decided the break reminder time interval
@@ -48,12 +68,20 @@ async def startSession(ctx, break_time: int = 30):
     # Discord API method to change the interval in @tasks.loop()
     break_reminder.change_interval(minutes=break_time)
     break_reminder.start(ctx, bot, CHANNEL_ID, break_time)
+
+@bot.command()
+async def updateBreak(ctx, newBreakTime: int = 30):
+    break_reminder.cancel()
+    
+    await update_break_time(ctx, newBreakTime)
+    
+    break_reminder.start(ctx, bot, CHANNEL_ID, newBreakTime)
     
 # Command to end a study session and return amount spent studying
 @bot.command()
 async def endSession(ctx):
     await end_session(ctx, session)
-    break_reminder.stop()
+    break_reminder.cancel()
 
 # Command to add a task to a an array and return the array in order given
 @bot.command()
@@ -67,10 +95,13 @@ async def viewTasks(ctx):
 
 # Command to add a task to a completed dictionary that hold both the completed task and
 # The amount of time it took to finish from when a session was started
-# BUG: if task was completed before starting a session, it returns the max session amount
 @bot.command()
 async def completeTask(ctx, *, task: str):
     await complete_Task(ctx, task, session)
+
+@bot.command()
+async def viewCompletedTasks(ctx):
+    await view_completed_tasks(ctx)
 
 # Command that deletes a task from the array of tasks and returns the remaining tasks.
 @bot.command()

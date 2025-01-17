@@ -13,10 +13,13 @@ A simple Discord bot that helps you stay organized while studying.
 - After session has ended, Study Bot will inform how long the user studyed for
 
 ## Commands
+- !helpCommands - shows all study bot commands
 - !startSession {# of minutes until break reminder} - start a session; enter # of minutes is optional (defualt is 30 minutes)
 - !endSession - end a session
+- !updateBreak - updates the minutes it takes to inform of a break time
 - !addTask {TaskHere} - adds a task 
+- !viewTasks - returns task list 
 - !deleteTask {TaskHere} - deletes a task 
 - !completeTask {TaskHere} - completes a Task 
-- !viewTasks - returns task list 
+- !viewCompletedTasks - returns completed task list 
 - !clearTasks - clears the list of tasks
