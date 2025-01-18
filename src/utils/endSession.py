@@ -1,7 +1,15 @@
-
-# Method to end the current session as well as stoping the break reminder
-# returns the amount of time studying by using the session time and converting it to a human readable time
 async def end_session(ctx, session):
+    """
+    Method to end the current session as well as stoping break reminder.
+    returns the amount of time studying by using the session time and converting it to a human readable time
+    
+    Args:
+        ctx (_type_): discord API context.
+        session (session): Data Class to initilize a session with: :is_active: bool [false], :start_time: int [0].
+    
+    Returns:
+        str: A string informing the user that the session has been ended, followed by the session duration
+    """
     if not session.is_active:
         await ctx.send("There is no active session")
         return

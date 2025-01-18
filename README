@@ -9,8 +9,13 @@ A simple Discord bot that helps you stay organized while studying.
 - Greets users and announces when it’s ready.
 - Provides basic commands like `!hello`.
 - Set timer for starting study session and stoping it when finished
-- List of tasks to do (`!addTask, !completeTask, !deleteTask`)
+- List of tasks to do (`!addTask, !completeTask, !deleteTask, etc`)
 - After session has ended, Study Bot will inform how long the user studyed for
+- After a certain amount of time, given by the user, Study Bot will remind the user to take a break
+- Will remind the user of uncompleted tasks when user is reminded to take a break
+- Ability to change the break reminder time
+- Able to add, delete, or clear tasks
+- Add completed Tasks to a completed Tasks list
 
 ## Commands
 - !helpCommands - shows all study bot commands
