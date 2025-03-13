@@ -28,3 +28,7 @@ A simple Discord bot that helps you stay organized while studying.
 - !completeTask {TaskHere} - completes a Task 
 - !viewCompletedTasks - returns completed task list 
 - !clearTasks - clears the list of tasks
+
+Used and deployed to students in various states including: 
+Ohio (John Carroll University), San Diego, California,  
+and Denver, Colorado (Metropolitan University of Denver).
